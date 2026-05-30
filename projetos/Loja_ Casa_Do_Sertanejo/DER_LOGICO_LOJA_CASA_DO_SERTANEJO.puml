@@ -1,0 +1,136 @@
+@startuml DER_LOGICO_LOJA_CASA_DO_SERTANEJO
+
+skinparam linetype ortho
+skinparam padding 10
+skinparam margin 20
+skinparam nodesep 100
+skinparam ranksep 150
+skinparam minClassWidth 150
+
+entity Pessoa {
+  * id : int <<PK>>
+  --
+  nome : string
+  cpf : string
+  telefone : string
+  email : string
+}
+
+entity Cliente {
+  * id_pessoa : int <<PK, FK>>
+  --
+  data_cadastro : date
+  tipo_cliente : string
+  limite_credito : float
+}
+
+entity Fornecedor {
+  * id_pessoa : int <<PK, FK>>
+  --
+  nome_empresa : string
+  contato : string
+}
+
+entity Funcionario {
+  * id_pessoa : int <<PK, FK>>
+  --
+  cargo : string
+  salario : float
+  data_admissao : date
+}
+
+entity Produto {
+  * id : int <<PK>>
+  --
+  nome : string
+  categoria : string
+  preco : float
+  quantidade_estoque : int
+  data_validade : date
+}
+
+entity Estoque {
+  * id : int <<PK>>
+  --
+  id_produto : int <<FK>>
+  quantidade : int
+  quantidade_minima : int
+  localizacao : string
+}
+
+entity Pedido {
+  * id : int <<PK>>
+  --
+  data_hora : datetime
+  valor_total : float
+  id_cliente : int <<FK>>
+  id_funcionario : int <<FK>>
+  status : string
+}
+
+entity ItemPedido {
+  * id : int <<PK>>
+  --
+  id_pedido : int <<FK>>
+  id_produto : int <<FK>>
+  quantidade : int
+  valor_unitario : float
+}
+
+entity Venda {
+  * id : int <<PK>>
+  --
+  data_hora : datetime
+  valor_total : float
+  id_cliente : int <<FK>>
+  id_caixa : int <<FK>>
+}
+
+entity Caixa {
+  * id : int <<PK>>
+  --
+  saldo : float
+  receita : float
+  despesa : float
+  id_funcionario : int <<FK>>
+}
+
+entity Fatura {
+  * id : int <<PK>>
+  --
+  valor : float
+  data_emissao : date
+  data_vencimento : date
+  id_cliente : int <<FK>>
+  id_fornecedor : int <<FK>>
+}
+
+entity Loja {
+  * id : int <<PK>>
+  --
+  nome : string
+  endereco : string
+}
+
+' Relacionamentos
+Pessoa ||--o| Cliente : "PODE SER"
+Pessoa ||--o| Fornecedor : "PODE SER"
+Pessoa ||--o| Funcionario : "PODE SER"
+Cliente ||--o{ Pedido : "REALIZA"
+Funcionario ||--o{ Pedido : "ATENDE"
+Pedido ||--o{ ItemPedido : "CONTEM"
+Produto ||--o{ ItemPedido : "COMPÕE"
+Venda }o--|| Cliente : "EFETUA"
+Venda }o--|| Caixa : "REGISTRA"
+Caixa }o--|| Funcionario : "OPERADO POR"
+Produto ||--o{ Estoque : "POSSUI"
+Fornecedor ||--o{ Produto : "FORNECE"
+Estoque ||--|| Loja : "ARMAZENA"
+Fatura }o--|| Cliente : "DESTINA"
+Fatura }o--|| Fornecedor : "REFERENCIA"
+Caixa ||--o{ Fatura : "PAGA"
+Funcionario }o--|| Loja : "TRABALHA EM"
+Cliente }o--|| Loja : "FREQUENTA"
+Produto }o--|| Loja : "PERTENCE"
+
+@enduml

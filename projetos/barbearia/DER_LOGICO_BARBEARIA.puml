@@ -1,0 +1,161 @@
+@startuml DER_LOGICO_BARBEARIA
+
+skinparam linetype ortho
+skinparam padding 10
+skinparam margin 20
+skinparam nodesep 100
+skinparam ranksep 150
+skinparam minClassWidth 150
+!define DIRECTION top to bottom direction
+
+entity Pessoa {
+  * id : int <<PK>>
+  --
+  nome : string
+  cpf : string
+  telefone : string
+}
+
+entity Cliente {
+  * id_pessoa : int <<PK, FK>>
+  --
+  valor_disponivel : float
+  data_mensalidade : date
+  mensalidade : float
+}
+
+entity Funcionario {
+  * id_pessoa : int <<PK, FK>>
+  --
+  senha : string
+  fk_cargo : int <<FK>>
+}
+
+entity Cargo {
+  * id : int <<PK>>
+  --
+  nome : string
+  codigo : int
+}
+
+entity Produto {
+  * id : int <<PK>>
+  --
+  nome : string
+  tipo : string
+  valor : float
+  data_validade : date
+}
+
+entity Estoque {
+  * id : int <<PK>>
+  --
+  tipo : string
+  quantidade : int
+  quantidade_minima : int
+  id_produto : int <<FK>>
+}
+
+entity Reposicao {
+  * id : int <<PK>>
+  --
+  data : date
+  quantidade : int
+  valor : float
+  id_gasto : int <<FK>>
+  id_estoque : int <<FK>>
+  id_produto : int <<FK>>
+}
+
+entity Pedido {
+  * id : int <<PK>>
+  --
+  data_hora : datetime
+  valor : float
+  quantidade : int
+  id_produto : int <<FK>>
+  id_pessoa : int <<FK>>
+  id_comanda : int <<FK>>
+}
+
+entity Agendamento {
+  * id : int <<PK>>
+  --
+  data_hora : datetime
+  valor : float
+  id_servico : int <<FK>>
+  id_pessoa : int <<FK>>
+  id_comanda : int <<FK>>
+}
+
+entity Servico {
+  * id : int <<PK>>
+  --
+  nome : string
+  valor : float
+  tempo_estimado : time
+}
+
+entity Comanda {
+  * id : int <<PK>>
+  --
+  data_hora : datetime
+  valor : float
+  descricao : string
+  id_caixa : int <<FK>>
+}
+
+entity Caixa {
+  * id : int <<PK>>
+  --
+  receita : float
+  id_pessoa : int <<FK>>
+  id_barbearia : int <<FK>>
+}
+
+entity Gasto {
+  * id : int <<PK>>
+  --
+  valor : float
+  data_pagamento : date
+  id_caixa : int <<FK>>
+}
+
+entity Conta {
+  * id : int <<PK>>
+  --
+  nome : string
+  tipo : string
+  fechamento : date
+  vencimento : date
+  id_gasto : int <<FK>>
+}
+
+entity Barbearia {
+  * id : int <<PK>>
+  --
+  nome : string
+}
+
+' Relacionamentos
+Pessoa ||--o| Cliente : "PODE SER"
+Pessoa ||--o| Funcionario : "PODE SER"
+Funcionario }o--|| Cargo : "POSSUI"
+Cliente ||--o{ Pedido : "SOLICITA"
+Funcionario ||--o{ Pedido : "REALIZA"
+Cliente ||--o{ Agendamento : "SOLICITA"
+Funcionario ||--o{ Agendamento : "REALIZA"
+Produto ||--o{ Pedido : "INTEGRA"
+Produto ||--o{ Estoque : "INTEGRA"
+Produto ||--o{ Reposicao : "NECESSITA"
+Agendamento }o--|| Servico : "FAZ"
+Pedido }o--|| Comanda : "INTEGRA"
+Agendamento }o--|| Comanda : "INTEGRA"
+Comanda }o--|| Caixa : "INTERAGE"
+Gasto }o--|| Caixa : "INTERAGE"
+Conta }o--|| Gasto : "INTEGRA"
+Reposicao ||--|| Gasto : "GERA"
+Caixa }o--|| Barbearia : "POSSUI"
+Funcionario }o--|| Barbearia : "POSSUI"
+
+@enduml

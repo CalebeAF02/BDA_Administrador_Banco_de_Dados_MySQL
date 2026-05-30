@@ -1,0 +1,133 @@
+@startuml DER_LOGICO_ACADEMIA
+
+skinparam linetype ortho
+skinparam padding 10
+skinparam margin 20
+skinparam nodesep 100
+skinparam ranksep 150
+skinparam minClassWidth 150
+
+entity Pessoa {
+  * id : int <<PK>>
+  --
+  nome : string
+  cpf : string
+  telefone : string
+  email : string
+}
+
+entity Aluno {
+  * id_pessoa : int <<PK, FK>>
+  --
+  data_ingresso : date
+  plano : string
+  valor_mensalidade : float
+  data_pagamento : date
+}
+
+entity Professor {
+  * id_pessoa : int <<PK, FK>>
+  --
+  especialidade : string
+  salario : float
+  data_admissao : date
+}
+
+entity Funcionario {
+  * id_pessoa : int <<PK, FK>>
+  --
+  cargo : string
+  salario : float
+  turno : string
+}
+
+entity Curso {
+  * id : int <<PK>>
+  --
+  nome : string
+  categoria : string
+  valor : float
+  duracao_semanas : int
+}
+
+entity Turma {
+  * id : int <<PK>>
+  --
+  nome : string
+  id_curso : int <<FK>>
+  id_professor : int <<FK>>
+  horario : string
+  capacidade : int
+}
+
+entity Matricula {
+  * id : int <<PK>>
+  --
+  data : date
+  id_aluno : int <<FK>>
+  id_turma : int <<FK>>
+  status : string
+}
+
+entity Aula {
+  * id : int <<PK>>
+  --
+  data : date
+  hora_inicio : time
+  hora_fim : time
+  id_turma : int <<FK>>
+}
+
+entity Plano {
+  * id : int <<PK>>
+  --
+  nome : string
+  valor : float
+  duracao_meses : int
+  descricao : string
+}
+
+entity Pagamento {
+  * id : int <<PK>>
+  --
+  valor : float
+  data_pagamento : date
+  tipo : string
+  id_aluno : int <<FK>>
+  id_plano : int <<FK>>
+}
+
+entity Academia {
+  * id : int <<PK>>
+  --
+  nome : string
+  endereco : string
+}
+
+entity Equipamento {
+  * id : int <<PK>>
+  --
+  nome : string
+  tipo : string
+  data_aquisicao : date
+  quantidade : int
+  id_academia : int <<FK>>
+}
+
+' Relacionamentos
+Pessoa ||--o| Aluno : "PODE SER"
+Pessoa ||--o| Professor : "PODE SER"
+Pessoa ||--o| Funcionario : "PODE SER"
+Aluno ||--o{ Matricula : "REALIZA"
+Turma ||--o{ Matricula : "RECEBE"
+Curso ||--o{ Turma : "COMPÕE"
+Professor ||--o{ Turma : "MINISTRA"
+Turma ||--o{ Aula : "CONTA"
+Plano ||--o{ Pagamento : "GERA"
+Aluno ||--o{ Pagamento : "EFETUA"
+Equipamento }o--|| Academia : "PERTENCE"
+Funcionario }o--|| Academia : "TRABALHA EM"
+Professor }o--|| Academia : "TRABALHA EM"
+Aluno }o--|| Academia : "MATRICULA-SE EM"
+
+@enduml
