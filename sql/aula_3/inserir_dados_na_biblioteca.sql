@@ -1,0 +1,74 @@
+
+SELECT * FROM PESSOA;
+SELECT * FROM AUTOR;
+SELECT * FROM ALUNO;
+SELECT * FROM LIVRO;
+SELECT * FROM EMPRESTIMO;
+SELECT * FROM CURSO;
+SELECT * FROM TURMA;
+SELECT * FROM ESTUDA;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE ESTUDA;
+TRUNCATE TABLE EMPRESTIMO;
+TRUNCATE TABLE TURMA;
+TRUNCATE TABLE CURSO;
+TRUNCATE TABLE LIVRO;
+TRUNCATE TABLE ALUNO;
+TRUNCATE TABLE AUTOR;
+TRUNCATE TABLE PESSOA;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+INSERT INTO PESSOA (cpf, nome, data_nascimento)
+VALUES
+('11111111111', 'Calebe', '2002-03-23'),
+('22222222222', 'Jubileu', '1985-09-02'),
+('33333333333', 'Autor Desconhecido', '1990-01-01'),
+('44444444444', 'Maria', '2022-12-30'),
+('55555555555', 'Aluno Novo', '2004-05-10'),        
+('66666666666', 'jj', '2006-04-18');                
+
+INSERT INTO AUTOR (cpf_pessoa)
+VALUES
+('22222222222'),
+('33333333333'),
+('44444444444');
+
+INSERT INTO ALUNO (matricula, ativo, cpf_pessoa)
+VALUES
+('55555-ABC', 1, '11111111111'),
+('66666-DEF', 1, '55555555555'),
+('77777-GHI', 1, '66666666666');
+
+INSERT INTO LIVRO (isbn, titulo, ano, editora, id_autor)
+VALUES
+('9999999999999', 'One Piece', 2026, 'makdow', 1),
+('8888888888888', 'Naruto', 2026, 'Panini', 2),
+('7777777777777', 'Bleach', 2026, 'Panini', 3);
+
+INSERT INTO EMPRESTIMO (data_emprestimo, data_devolucao, matricula_aluno, isbn_livro)
+VALUES
+('2026-04-01', '2026-05-01', '55555-ABC', '9999999999999'),
+('2026-06-01', '2026-07-01', '66666-DEF', '8888888888888'),
+('2026-06-02', '2026-07-02', '77777-GHI', '7777777777777');
+
+INSERT INTO CURSO (codigo, nome)
+VALUES
+('CIC_099', 'Ciências da computação'),
+('ENG_012', 'Engenharia de Software'),
+('DSG_045', 'Design Digital');
+
+INSERT INTO TURMA (codigo, semestre)
+VALUES
+('BD_013', '2026/1'),
+('C1_024', '2026/2'),
+('APC_01', '2023/1');
+
+INSERT INTO ESTUDA (matricula_aluno, codigo_curso, codigo_turma)
+VALUES
+('55555-ABC', 'CIC_099', 'BD_013'),
+('66666-DEF', 'ENG_012', 'C1_024'),
+('77777-GHI', 'DSG_045', 'APC_01');
+
