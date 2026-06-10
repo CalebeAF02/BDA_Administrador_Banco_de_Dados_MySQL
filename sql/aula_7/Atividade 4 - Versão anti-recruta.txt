@@ -1,0 +1,110 @@
+Atividade 4 - Versão anti-recruta
+
+1 - Liste os países que:(use WORLD)
+pertencem à África
+possuem população acima de 15 milhões
+possuem expectativa de vida entre 50 e 70 anos
+possuem área territorial menor que 1.000.000
+
+Exiba:
+
+* Nome
+* População
+* Área
+* Expectativa de vida
+
+Ordene pela população em ordem decrescente.
+
+
+
+2 - Liste os países cujo:(use WORLD)
+nome possui a letra L
+ano de independência é anterior a 1950
+expectativa de vida é superior a 65 anos
+
+Exiba:
+* Nome
+* Ano de independência
+* Expectativa de vida
+
+Ordene pelo ano de independência.
+
+
+
+3 - qual o menor valor do aluguel de um filme (use SAKILA)?
+
+
+
+4 - Liste os países da América do Sul e América do Norte que possuem área superior à média mundial das áreas territoriais:(USE WORLD)
+
+Exiba:
+
+* Nome
+* Continente
+* Área
+
+Ordene pela maior área.
+
+5 - Descubra quantos países possuem:(use WORLD)
+* expectativa de vida acima de 80 anos
+* população superior a 5 milhões
+
+
+
+6 - Liste os filmes que:(use SAKILA)
+
+possuem duração acima de 120 minutos
+classificação diferente de 'NC-17'
+custo de reposição superior a 20.00
+
+Exiba:
+* Título
+* Classificação
+* Duração
+* Custo de reposição
+
+Ordene pela maior duração.
+
+
+
+7 - Liste os filmes cujo:
+valor de aluguel está entre 0.99 e 2.99
+duração está entre 80 e 130 minutos
+título contém a letra "E"
+
+Exiba:
+* Título
+* Valor do aluguel
+* Duração
+
+Ordene alfabeticamente.
+
+
+
+8 - Descubra:
+quantos filmes possuem duração acima da duração média de todos os filmes
+
+9 - Liste os 25 filmes mais caros para reposição que possuem classificação:
+PG
+PG-13
+R
+
+Exiba:
+* Título
+* Classificação
+* Custo de reposição
+
+Ordene pelo maior custo.
+
+
+
+10 - Liste os filmes que:
+possuem duração inferior à média dos filmes
+possuem valor de aluguel superior à média dos valores de aluguel
+
+Exiba:
+* Título
+* Duração
+* Valor do aluguel
+
+Ordene pelo maior valor de aluguel.
