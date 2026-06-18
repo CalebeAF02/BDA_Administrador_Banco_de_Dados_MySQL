@@ -69,7 +69,10 @@ Ordene pela maior área.
 
 use world;
 
-select *
+select 
+Name as nome,
+Continent as continente,
+SurfaceArea area
 from country
 where (Continent in ('South America', 'North America')) and (SurfaceArea > (select avg(SurfaceArea) from country))
 order by SurfaceArea desc;

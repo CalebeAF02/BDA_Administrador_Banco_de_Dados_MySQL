@@ -180,4 +180,15 @@ where (Continent in ("EUROPE","ASIA")) and (LifeExpectancy is not null) and (Pop
 order by IndepYear asc;
 
 
+14 -- DESAFIO
+
+use sakila;
+
+select
+title as titulo,
+rating as ranking,
+length as tempo_de_filme
+from film
+where (rating != "G") and (length > 100) and (rental_rate > 2.99) and (replacement_cost between 15.00 and 25.00) and (title like "%u%");
+
 */
